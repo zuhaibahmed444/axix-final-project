@@ -38,16 +38,23 @@ class BookAssignController {
     }
 
     @GetMapping("/{id}")
-    fun getAssignAllBookByUser(@PathVariable id: String): List<BookAssigned>? {
+    fun getAssignAllBookByUserdata(@PathVariable id: String): List<BookAssigned>? {
         val user : User? = userService!!.getUserById(id)
         return bookAssignedService?.getAssignedByUser(user!!)
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/book-active/{id}")
     fun getAssignBookByUser(@PathVariable id: String): List<Book> {
         val user : User? = userService!!.getUserById(id)
         return bookAssignedService!!.getAssignedBooksByUser(user!!)
     }
+
+    @GetMapping("/book-all/{id}")
+    fun getAssignAllBookByUser(@PathVariable id: String): List<Book> {
+        val user : User? = userService!!.getUserById(id)
+        return bookAssignedService!!.getAssignedByUserAll(user!!)
+    }
+
 
 
 }

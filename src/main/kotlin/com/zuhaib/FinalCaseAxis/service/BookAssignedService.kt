@@ -10,4 +10,5 @@ interface BookAssignedService {
     fun getAllAssignedBooks(): List<BookAssigned>
     fun getAssignedByUser(user:User): List<BookAssigned>
     fun getAssignedBooksByUser(user:User): List<Book>
+    fun getAssignedByUserAll(user: User): List<Book>
 }

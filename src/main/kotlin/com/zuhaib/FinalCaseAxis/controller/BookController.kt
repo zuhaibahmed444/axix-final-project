@@ -13,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
 @RestController
-@RequestMapping("/dummy")
+@RequestMapping("/book")
 @CrossOrigin("*")
-class DummyController {
+class BookController {
 
     @Autowired
     val s3ServiceImpl: S3ServiceImpl? = null
@@ -65,17 +65,11 @@ class DummyController {
                 .header("Content-type", "application/octet-stream")
                 .header("Content-disposition", "attachment; filename=\"$filename\"")
                 .body(resource)
-
-
-
-
     }
-
 
     @GetMapping("/{id}")
     fun getBook(@PathVariable("id") id:String) : Book? {
         return bookService?.getBookById(id)
     }
-
 
 }

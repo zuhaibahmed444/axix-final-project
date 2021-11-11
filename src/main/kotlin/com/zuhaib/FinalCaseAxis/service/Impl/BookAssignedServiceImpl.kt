@@ -30,11 +30,38 @@ class BookAssignedServiceImpl() : BookAssignedService {
 
     override fun getAssignedByUser(user: User): List<BookAssigned> {
         return bookAssignedRepository!!.findByUser(user)
+
     }
 
     override fun getAssignedBooksByUser(user: User): List<Book> {
-        return bookAssignedRepository!!.findBookByUser(user)
+        val booksAssigned : List<BookAssigned> = bookAssignedRepository!!.findByUser(user)
+        var dt : LocalDate = LocalDate.now()
+        val len : Int = booksAssigned.size
+        var books : MutableList<Book> = mutableListOf()
+        for (i in 0 until len){
+            if(booksAssigned[i].expiryDate!!.isAfter(dt)){
+                books.add(booksAssigned[i].book!!)
+            }
+
+        }
+        println(books)
+        return books
+
+
+    }
+
+    override fun getAssignedByUserAll(user: User): List<Book> {
+        val bookAssigned = bookAssignedRepository!!.findByUser(user)
+        val len : Int = bookAssigned.size
+        var books : MutableList<Book> = mutableListOf()
+        for (i in 0 until len){
+            books.add(bookAssigned[i].book!!)
+        }
+        return books
     }
 
 
 }
+
+
+
