@@ -5,10 +5,8 @@ import com.zuhaib.FinalCaseAxis.helper.UserException
 import com.zuhaib.FinalCaseAxis.model.User
 import com.zuhaib.FinalCaseAxis.repo.UserRepository
 import com.zuhaib.FinalCaseAxis.service.UserService
-import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class UserServiceImpl: UserService {
