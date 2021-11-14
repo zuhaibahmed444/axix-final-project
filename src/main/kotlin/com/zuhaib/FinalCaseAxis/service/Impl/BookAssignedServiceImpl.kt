@@ -60,6 +60,14 @@ class BookAssignedServiceImpl() : BookAssignedService {
         return books
     }
 
+    override fun updateBookAssigned(bookAssigned: BookAssigned): BookAssigned? {
+        return bookAssignedRepository?.save(bookAssigned)
+    }
+
+    override fun getAssignedBookById(id: String): BookAssigned? {
+        return bookAssignedRepository!!.findById(id).orElse(null)
+    }
+
 
 }
 

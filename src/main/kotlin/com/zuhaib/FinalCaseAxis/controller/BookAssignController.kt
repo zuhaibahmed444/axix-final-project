@@ -1,9 +1,11 @@
 package com.zuhaib.FinalCaseAxis.controller
 
+import com.zuhaib.FinalCaseAxis.model.AccessReq
 import com.zuhaib.FinalCaseAxis.model.Book
 import com.zuhaib.FinalCaseAxis.model.BookAssigned
 import com.zuhaib.FinalCaseAxis.model.User
 import com.zuhaib.FinalCaseAxis.model.helper.BookAssignRequestModel
+import com.zuhaib.FinalCaseAxis.service.AccessReqService
 import com.zuhaib.FinalCaseAxis.service.BookAssignedService
 import com.zuhaib.FinalCaseAxis.service.BookService
 import com.zuhaib.FinalCaseAxis.service.UserService
@@ -24,10 +26,18 @@ class BookAssignController {
     @Autowired
     val bookAssignedService:BookAssignedService? = null
 
+    @Autowired
+    val accessReqService: AccessReqService? = null
+
     @PostMapping("/")
-    fun assignBook(@RequestBody bookAssignRequestModel: BookAssignRequestModel): BookAssigned? {
-        var user : User? = bookAssignRequestModel.userId?.let { userService?.getUserById(it) }
-        var book: Book? = bookAssignRequestModel.bookId?.let { bookService!!.getBookById(it) }
+    fun assignBook(@RequestBody reqId: String): BookAssigned? {
+        val accessReq : AccessReq? = accessReqService!!.getAccessReq(reqId)
+        var email : String? = accessReq!!.userEmail
+        var bookId : String? = accessReq!!.bookId
+        var user : User? = userService!!.getUser(email!!)
+        var book: Book? = bookService!!.getBookById(bookId!!)
+        accessReq.active = false
+        accessReqService!!.updateAccessReq(accessReq)
         return bookAssignedService!!.assignBook(book!!, user!!)
 
     }

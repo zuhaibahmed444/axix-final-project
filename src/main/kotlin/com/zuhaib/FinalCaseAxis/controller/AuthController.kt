@@ -42,8 +42,7 @@ class AuthController {
         /////////////authenticate
         val userDetails = userDetailsService!!.loadUserByUsername(jwtRequest.getEmail())
         val token = jwtUtils?.generateToken(userDetails)
-        val userdetail = userDetailsService!!.loadUserByUsername(jwtRequest.getEmail())
-        return ResponseEntity.ok(JwtResponse(token, userdetail))
+        return ResponseEntity.ok(JwtResponse(token))
     }
 
     @Throws(Exception::class)
@@ -57,7 +56,7 @@ class AuthController {
         }
     }
     //return the details of current user
-    @GetMapping("/api/v1/current-user")
+    @GetMapping("/current-user")
     fun getCurrentUser(principal: Principal): String? {
         return mapper.writeValueAsString(userDetailsService?.loadUserByUsername(principal.name))
     }
