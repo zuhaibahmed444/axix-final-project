@@ -3,6 +3,8 @@ package com.zuhaib.FinalCaseAxis.service
 import com.zuhaib.FinalCaseAxis.model.Book
 import com.zuhaib.FinalCaseAxis.model.BookAssigned
 import com.zuhaib.FinalCaseAxis.model.User
+import com.zuhaib.FinalCaseAxis.model.helper.BookBasedUserResponse
+import com.zuhaib.FinalCaseAxis.model.helper.RevokeRequestModel
 
 interface BookAssignedService {
 
@@ -13,4 +15,6 @@ interface BookAssignedService {
     fun getAssignedByUserAll(user: User): List<Book>
     fun updateBookAssigned(bookAssigned: BookAssigned): BookAssigned?
     fun getAssignedBookById(id:String): BookAssigned?
+    fun getAssignedBooksByBook(book: Book): List<BookBasedUserResponse>
+    fun revokeBookAssigned(user: User,book: Book): BookAssigned?
 }

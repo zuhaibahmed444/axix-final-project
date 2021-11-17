@@ -35,6 +35,10 @@ class AccessReqServiceImpl: AccessReqService {
         return accessReqRepository!!.findAll()
     }
 
+    override fun getAllByUser(email: String): List<AccessReq>? {
+        return accessReqRepository!!.findByUserEmail(email)
+    }
+
 
     override fun getAccessReq(id: String): AccessReq? {
         return accessReqRepository!!.findById(id).orElse(null)
@@ -43,6 +47,8 @@ class AccessReqServiceImpl: AccessReqService {
     override fun getActiveAccessReq(): List<AccessReq>? {
         return accessReqRepository?.findByActive(true)
     }
+
+
 
 
 }

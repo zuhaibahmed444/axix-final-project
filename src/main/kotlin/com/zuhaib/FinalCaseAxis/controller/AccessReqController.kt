@@ -38,4 +38,10 @@ class AccessReqController {
         return accessReqService!!.getAccessReq(id)
     }
 
+    @PostMapping("/user")
+    fun getAccessReqByUser(@RequestBody email:String):List<AccessReq>?{
+        return accessReqService!!.getAllByUser(email)
+    }
+
+
 }

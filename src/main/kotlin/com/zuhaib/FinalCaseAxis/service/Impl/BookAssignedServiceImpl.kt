@@ -3,6 +3,8 @@ package com.zuhaib.FinalCaseAxis.service.Impl
 import com.zuhaib.FinalCaseAxis.model.Book
 import com.zuhaib.FinalCaseAxis.model.BookAssigned
 import com.zuhaib.FinalCaseAxis.model.User
+import com.zuhaib.FinalCaseAxis.model.helper.BookBasedUserResponse
+import com.zuhaib.FinalCaseAxis.model.helper.RevokeRequestModel
 import com.zuhaib.FinalCaseAxis.repo.BookAssignedRepository
 import com.zuhaib.FinalCaseAxis.service.BookAssignedService
 import org.springframework.beans.factory.annotation.Autowired
@@ -66,6 +68,26 @@ class BookAssignedServiceImpl() : BookAssignedService {
 
     override fun getAssignedBookById(id: String): BookAssigned? {
         return bookAssignedRepository!!.findById(id).orElse(null)
+    }
+
+    override fun getAssignedBooksByBook(book: Book): List<BookBasedUserResponse> {
+        var bookAssigned :List<BookAssigned> = bookAssignedRepository!!.findByBook(book)
+        val len : Int = bookAssigned.size
+        var bookres = BookBasedUserResponse()
+        var res : MutableList<BookBasedUserResponse> = mutableListOf()
+        println(len)
+        for (i in 0 until len){
+            res.add(BookBasedUserResponse(bookAssigned[i].user!!.email,bookAssigned[i].expiryDate,bookAssigned[i].issueDate,bookAssigned[i].expiryDate!!.isAfter(LocalDate.now())))
+        }
+        println(res)
+        return res
+
+    }
+
+    override fun revokeBookAssigned(user: User, book: Book): BookAssigned? {
+        val bookAssigned = bookAssignedRepository!!.findByBookAndUser(book,user)
+        bookAssigned!!.expiryDate = LocalDate.now()
+        return bookAssignedRepository!!.save(bookAssigned)
     }
 
 

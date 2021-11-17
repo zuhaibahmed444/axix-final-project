@@ -8,4 +8,5 @@ interface AccessReqService {
     fun getActiveAccessReq() : List<AccessReq>?
     fun updateAccessReq(accessReq: AccessReq) : AccessReq?
     fun getAllAccessReq() : List<AccessReq>?
+    fun getAllByUser(email:String):List<AccessReq>?
 }

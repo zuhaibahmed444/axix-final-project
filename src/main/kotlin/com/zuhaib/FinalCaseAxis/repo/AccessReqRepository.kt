@@ -6,4 +6,5 @@ import org.springframework.data.mongodb.repository.MongoRepository
 interface AccessReqRepository:MongoRepository<AccessReq,String> {
     fun findByActive(active:Boolean):List<AccessReq>
     fun findByBookIdAndUserEmail(bookId:String,userEmail:String):AccessReq?
+    fun findByUserEmail(userEmail: String):List<AccessReq>
 }

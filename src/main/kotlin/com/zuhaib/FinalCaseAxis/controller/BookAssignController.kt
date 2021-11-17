@@ -5,6 +5,9 @@ import com.zuhaib.FinalCaseAxis.model.Book
 import com.zuhaib.FinalCaseAxis.model.BookAssigned
 import com.zuhaib.FinalCaseAxis.model.User
 import com.zuhaib.FinalCaseAxis.model.helper.BookAssignRequestModel
+import com.zuhaib.FinalCaseAxis.model.helper.BookBasedUserResponse
+import com.zuhaib.FinalCaseAxis.model.helper.RevokeRequestModel
+import com.zuhaib.FinalCaseAxis.repo.BookAssignedRepository
 import com.zuhaib.FinalCaseAxis.service.AccessReqService
 import com.zuhaib.FinalCaseAxis.service.BookAssignedService
 import com.zuhaib.FinalCaseAxis.service.BookService
@@ -28,6 +31,9 @@ class BookAssignController {
 
     @Autowired
     val accessReqService: AccessReqService? = null
+
+    @Autowired
+    val bookAssignedRepository: BookAssignedRepository? = null
 
     @PostMapping("/")
     fun assignBook(@RequestBody reqId: String): BookAssigned? {
@@ -63,6 +69,22 @@ class BookAssignController {
     fun getAssignAllBookByUser(@PathVariable id: String): List<Book> {
         val user : User? = userService!!.getUserById(id)
         return bookAssignedService!!.getAssignedByUserAll(user!!)
+    }
+
+    @GetMapping("/book-res/{id}")
+    fun getAssignBookByUserRes(@PathVariable id: String): List<BookBasedUserResponse> {
+        val book : Book? = bookService!!.getBookById(id)
+        return bookAssignedService!!.getAssignedBooksByBook(book!!)
+
+    }
+
+    @PostMapping("/revoke")
+    fun revokeBookAccess(@RequestBody revreq : RevokeRequestModel): BookAssigned? {
+        var email : String? = revreq.userEmail
+        var bookId : String? = revreq.bookId
+        var user : User? = userService!!.getUser(email!!)
+        var book: Book? = bookService!!.getBookById(bookId!!)
+        return bookAssignedService?.revokeBookAssigned(user!!, book!!)
     }
 
 
