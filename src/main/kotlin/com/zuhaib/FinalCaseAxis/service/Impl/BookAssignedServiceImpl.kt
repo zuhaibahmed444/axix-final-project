@@ -1,5 +1,6 @@
 package com.zuhaib.FinalCaseAxis.service.Impl
 
+import com.fasterxml.uuid.Generators
 import com.zuhaib.FinalCaseAxis.model.Book
 import com.zuhaib.FinalCaseAxis.model.BookAssigned
 import com.zuhaib.FinalCaseAxis.model.User
@@ -21,8 +22,13 @@ class BookAssignedServiceImpl() : BookAssignedService {
     override fun assignBook(book: Book, user: User): BookAssigned? {
         var expirydate : LocalDate = LocalDate.now().plusDays(15)
         var issuedate : LocalDate = LocalDate.now()
-        var bookassigned = BookAssigned(user,book, expirydate, issuedate)
-        return bookAssignedRepository?.save(bookassigned)
+        var bookAssigned = BookAssigned()
+        bookAssigned.book = book
+        bookAssigned.user = user
+        bookAssigned.expiryDate = expirydate
+        bookAssigned.issueDate = issuedate
+        bookAssigned.id =  Generators.timeBasedGenerator().generate().toString()
+        return bookAssignedRepository?.save(bookAssigned)
 
     }
 
@@ -86,7 +92,7 @@ class BookAssignedServiceImpl() : BookAssignedService {
 
     override fun revokeBookAssigned(user: User, book: Book): BookAssigned? {
         val bookAssigned = bookAssignedRepository!!.findByBookAndUser(book,user)
-        bookAssigned!!.expiryDate = LocalDate.now()
+        bookAssigned!!.expiryDate = LocalDate.now().minusDays(1)
         return bookAssignedRepository!!.save(bookAssigned)
     }
 

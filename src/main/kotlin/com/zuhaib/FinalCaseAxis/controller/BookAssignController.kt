@@ -1,19 +1,23 @@
 package com.zuhaib.FinalCaseAxis.controller
 
+import com.zuhaib.FinalCaseAxis.helper.CSVUtils
 import com.zuhaib.FinalCaseAxis.model.AccessReq
 import com.zuhaib.FinalCaseAxis.model.Book
 import com.zuhaib.FinalCaseAxis.model.BookAssigned
 import com.zuhaib.FinalCaseAxis.model.User
-import com.zuhaib.FinalCaseAxis.model.helper.BookAssignRequestModel
 import com.zuhaib.FinalCaseAxis.model.helper.BookBasedUserResponse
 import com.zuhaib.FinalCaseAxis.model.helper.RevokeRequestModel
 import com.zuhaib.FinalCaseAxis.repo.BookAssignedRepository
 import com.zuhaib.FinalCaseAxis.service.AccessReqService
 import com.zuhaib.FinalCaseAxis.service.BookAssignedService
 import com.zuhaib.FinalCaseAxis.service.BookService
+import com.zuhaib.FinalCaseAxis.service.Impl.CSVServiceImpl
 import com.zuhaib.FinalCaseAxis.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
+import kotlin.jvm.Throws
 
 @RestController
 @RequestMapping("/bookassign")
@@ -34,6 +38,9 @@ class BookAssignController {
 
     @Autowired
     val bookAssignedRepository: BookAssignedRepository? = null
+
+   @Autowired
+   val csvServiceImpl : CSVServiceImpl? = null
 
     @PostMapping("/")
     fun assignBook(@RequestBody reqId: String): BookAssigned? {
@@ -87,6 +94,18 @@ class BookAssignController {
         return bookAssignedService?.revokeBookAssigned(user!!, book!!)
     }
 
+    @PostMapping("/csv")
+    fun uploadCSV(@RequestParam("file") file: MultipartFile): ResponseEntity<*> {
 
+            var ot = csvServiceImpl!!.uploadMultipart(file)
+            ot.forEach {
+                var user: User? = it.userEmail?.let { it1 -> userService!!.getUser(it1) }
+                var book: Book? = it.bookId?.let { it1 -> bookService!!.getBookById(it1) }
+                bookAssignedService?.revokeBookAssigned(user!!, book!!)
+            }
+            return ResponseEntity.ok(ot)
+
+
+    }
 
 }

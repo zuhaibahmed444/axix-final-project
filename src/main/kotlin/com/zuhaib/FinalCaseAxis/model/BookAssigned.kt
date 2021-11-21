@@ -8,7 +8,8 @@ import java.time.LocalDate
 @Document(collection = "bookAssigned")
 class BookAssigned (){
     @Id
-    var Id : String? = null
+    var id : String? = null
+
     @DBRef
     var user: User? = null
     @DBRef
