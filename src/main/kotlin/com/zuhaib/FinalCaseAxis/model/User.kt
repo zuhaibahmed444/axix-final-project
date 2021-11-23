@@ -17,13 +17,11 @@ class User(): UserDetails {
     private var password: String? = null
     var role:String? = null
 
-    constructor(userId: String, name: String, email: String, phone: String, password: String, role: String) : this() {
-        this.userId = userId
+    constructor(name: String, email: String, phone: String, password: String) : this() {
         this.name = name
         this.email = email
         this.phone = phone
         this.password = password
-        this.role = role
     }
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
