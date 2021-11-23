@@ -72,4 +72,10 @@ class BookController {
         return bookService?.getBookById(id)
     }
 
+    @GetMapping("/count")
+    fun getBookCount() : ResponseEntity<*> {
+        val count = bookService?.getAllBooks()?.size
+        return ResponseEntity.ok(count)
+    }
+
 }

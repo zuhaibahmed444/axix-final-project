@@ -1,6 +1,5 @@
 package com.zuhaib.FinalCaseAxis.controller
 
-import com.zuhaib.FinalCaseAxis.helper.CSVUtils
 import com.zuhaib.FinalCaseAxis.model.AccessReq
 import com.zuhaib.FinalCaseAxis.model.Book
 import com.zuhaib.FinalCaseAxis.model.BookAssigned
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
-import kotlin.jvm.Throws
 
 @RestController
 @RequestMapping("/bookassign")
@@ -67,13 +65,13 @@ class BookAssignController {
     }
 
     @GetMapping("/book-active/{id}")
-    fun getAssignBookByUser(@PathVariable id: String): List<Book> {
+    fun getAssignBookByUser(@PathVariable id: String): List<BookAssigned> {
         val user : User? = userService!!.getUserById(id)
         return bookAssignedService!!.getAssignedBooksByUser(user!!)
     }
 
     @GetMapping("/book-all/{id}")
-    fun getAssignAllBookByUser(@PathVariable id: String): List<Book> {
+    fun getAssignAllBookByUser(@PathVariable id: String): List<BookAssigned> {
         val user : User? = userService!!.getUserById(id)
         return bookAssignedService!!.getAssignedByUserAll(user!!)
     }
@@ -107,5 +105,22 @@ class BookAssignController {
 
 
     }
+
+    @GetMapping("/book-active/count/{id}")
+    fun getUserActiveBookCount(@PathVariable id: String):ResponseEntity<*>{
+        val user : User? = userService!!.getUserById(id)
+        val activeCount =  bookAssignedService!!.getAssignedBooksByUser(user!!).size
+        return ResponseEntity.ok(activeCount)
+
+    }
+
+    @GetMapping("/book-all/count/{id}")
+    fun getUserAllBookCount(@PathVariable id: String):ResponseEntity<*>{
+        val user : User? = userService!!.getUserById(id)
+        val allCount =  bookAssignedService!!.getAssignedByUserAll(user!!).size
+        return ResponseEntity.ok(allCount)
+
+    }
+
 
 }

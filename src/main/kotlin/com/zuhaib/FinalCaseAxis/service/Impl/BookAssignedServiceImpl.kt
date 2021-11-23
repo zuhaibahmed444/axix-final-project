@@ -5,7 +5,6 @@ import com.zuhaib.FinalCaseAxis.model.Book
 import com.zuhaib.FinalCaseAxis.model.BookAssigned
 import com.zuhaib.FinalCaseAxis.model.User
 import com.zuhaib.FinalCaseAxis.model.helper.BookBasedUserResponse
-import com.zuhaib.FinalCaseAxis.model.helper.RevokeRequestModel
 import com.zuhaib.FinalCaseAxis.repo.BookAssignedRepository
 import com.zuhaib.FinalCaseAxis.service.BookAssignedService
 import org.springframework.beans.factory.annotation.Autowired
@@ -41,14 +40,14 @@ class BookAssignedServiceImpl() : BookAssignedService {
 
     }
 
-    override fun getAssignedBooksByUser(user: User): List<Book> {
+    override fun getAssignedBooksByUser(user: User): List<BookAssigned> {
         val booksAssigned : List<BookAssigned> = bookAssignedRepository!!.findByUser(user)
         var dt : LocalDate = LocalDate.now()
         val len : Int = booksAssigned.size
-        var books : MutableList<Book> = mutableListOf()
+        var books : MutableList<BookAssigned> = mutableListOf()
         for (i in 0 until len){
             if(booksAssigned[i].expiryDate!!.isAfter(dt)){
-                books.add(booksAssigned[i].book!!)
+                books.add(booksAssigned[i])
             }
 
         }
@@ -58,14 +57,8 @@ class BookAssignedServiceImpl() : BookAssignedService {
 
     }
 
-    override fun getAssignedByUserAll(user: User): List<Book> {
-        val bookAssigned = bookAssignedRepository!!.findByUser(user)
-        val len : Int = bookAssigned.size
-        var books : MutableList<Book> = mutableListOf()
-        for (i in 0 until len){
-            books.add(bookAssigned[i].book!!)
-        }
-        return books
+    override fun getAssignedByUserAll(user: User): List<BookAssigned> {
+        return bookAssignedRepository!!.findByUser(user)
     }
 
     override fun updateBookAssigned(bookAssigned: BookAssigned): BookAssigned? {

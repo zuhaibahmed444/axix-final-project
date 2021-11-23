@@ -4,6 +4,7 @@ import com.zuhaib.FinalCaseAxis.model.User
 import com.zuhaib.FinalCaseAxis.service.UserService
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
 
@@ -42,6 +43,12 @@ class UserController {
     @GetMapping("/{Id}")
     fun getUserById(@PathVariable("Id") Id:String):User?{
         return userService?.getUserById(Id)
+    }
+
+    @GetMapping("/count")
+    fun getUserCount(): ResponseEntity<*>{
+        val count = userService?.getUsers()?.size
+        return ResponseEntity.ok(count)
     }
 
 }

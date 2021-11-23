@@ -11,8 +11,8 @@ interface BookAssignedService {
     fun assignBook(book:Book, user:User): BookAssigned?
     fun getAllAssignedBooks(): List<BookAssigned>
     fun getAssignedByUser(user:User): List<BookAssigned>
-    fun getAssignedBooksByUser(user:User): List<Book>
-    fun getAssignedByUserAll(user: User): List<Book>
+    fun getAssignedBooksByUser(user:User): List<BookAssigned>
+    fun getAssignedByUserAll(user: User): List<BookAssigned>
     fun updateBookAssigned(bookAssigned: BookAssigned): BookAssigned?
     fun getAssignedBookById(id:String): BookAssigned?
     fun getAssignedBooksByBook(book: Book): List<BookBasedUserResponse>

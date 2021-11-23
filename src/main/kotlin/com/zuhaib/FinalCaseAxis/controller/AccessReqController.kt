@@ -3,6 +3,7 @@ package com.zuhaib.FinalCaseAxis.controller
 import com.zuhaib.FinalCaseAxis.model.AccessReq
 import com.zuhaib.FinalCaseAxis.service.AccessReqService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -41,6 +42,12 @@ class AccessReqController {
     @PostMapping("/user")
     fun getAccessReqByUser(@RequestBody email:String):List<AccessReq>?{
         return accessReqService!!.getAllByUser(email)
+    }
+
+    @GetMapping("/count")
+    fun getReqCount():ResponseEntity<*>{
+        val count = accessReqService?.getActiveAccessReq()?.size
+        return ResponseEntity.ok(count)
     }
 
 
