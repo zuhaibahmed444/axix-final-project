@@ -143,6 +143,7 @@
 				</dependencies>
 			</plugin>
 		</plugins>
+		<finalName>axis-case-study</finalName>
 	</build>
 
 </project>

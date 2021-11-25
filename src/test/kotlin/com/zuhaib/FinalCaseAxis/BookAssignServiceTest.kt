@@ -36,14 +36,7 @@ class BookAssignServiceTest {
 
     }
 
-    @Test
-    fun revokeBookAssignedTest(){
-        val user = userService?.getUser("zuhaibahmed444@gmail.com")
-        val book = bookService?.getBookById("b03101dc-41f4-11ec-bdb5-ef1318946000")
-        val assign = service?.revokeBookAssigned(user!!,book!!)
-        Assert.assertEquals(LocalDate.now().minusDays(1),assign?.expiryDate)
 
-    }
 
     @Test
     fun getAssignedBookTest(){
