@@ -29,8 +29,8 @@ jobs:
       with:
         image:zuhaibahmed444/axis-final
         tag:latest
-        registry: docker.io
         dockerfile:Dockerfile
+        registry:docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
