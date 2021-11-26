@@ -30,8 +30,8 @@ class BookServiceTest {
 
     @Test
     fun getBookByIdTest(){
-        val id = "b03101dc-41f4-11ec-bdb5-ef1318946000"
-        assertEquals("xyz",service?.getBookById(id)?.title)
+        val id = "08e69f37-4ec8-11ec-b9d4-f92af5e15ff7"
+        assertEquals("Java",service?.getBookById(id)?.title)
     }
 
     @Test

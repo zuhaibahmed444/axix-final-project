@@ -1,6 +1,7 @@
 package com.zuhaib.FinalCaseAxis.service
 
 import com.amazonaws.services.s3.AmazonS3
+import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.amazonaws.services.s3.model.S3Object
 import com.amazonaws.services.s3.model.S3ObjectInputStream
@@ -28,7 +29,8 @@ class S3ServiceImpl {
         val fileObj = convertMultiPartFileToFile(file)
         val fileName = file.originalFilename
         val fileUrl = "$endpointUrl/$bucketName/$fileName";
-        val ree = s3Client!!.putObject(PutObjectRequest(bucketName, fileName, fileObj))
+        val ree = s3Client!!.putObject(PutObjectRequest(bucketName, fileName, fileObj)
+               .withCannedAcl(CannedAccessControlList.PublicRead))
         fileObj!!.delete()
         return fileUrl
     }

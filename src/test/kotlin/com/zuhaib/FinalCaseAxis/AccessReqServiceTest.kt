@@ -20,7 +20,7 @@ class AccessReqServiceTest {
     @Mock
     val accessReqRepository : AccessReqRepository ?=null
 
-    val accessreq = AccessReq("b03101dc-41f4-11ec-bdb5-ef1318946000","xyz","zuhaibahmed444@gmail.com",true)
+    val accessreq = AccessReq("08e69f37-4ec8-11ec-b9d4-f92af5e15ff7","Java","zuhaibahmed444@gmail.com",true)
 
     @Test
     fun saveRequestTest(){
@@ -29,7 +29,7 @@ class AccessReqServiceTest {
     }
     @Test
     fun getRequestTest(){
-        val id ="5b027cf2-47cd-11ec-a84f-59d8e2718fdb"
+        val id ="b017ad8c-4ec8-11ec-b9d4-a7950e1caace"
         Assert.assertEquals(id,service?.getAccessReq(id)?.reqID)
     }
 
