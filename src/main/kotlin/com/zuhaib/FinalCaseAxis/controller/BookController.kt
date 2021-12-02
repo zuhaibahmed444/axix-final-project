@@ -25,13 +25,15 @@ class BookController {
 
 
     @PostMapping("/")
-    fun upload(@RequestParam("book") book:String , @RequestParam("file") file:MultipartFile ) : Book? {
+    fun upload(@RequestParam("book") book:String, @RequestParam("image") image : MultipartFile, @RequestParam("file") file:MultipartFile ) : Book? {
+        val imagename = image.originalFilename
         val filename : String? = file.originalFilename
         val gson : Gson = Gson()
         val bookHelperModel : BookHelperModel = gson.fromJson(book,BookHelperModel::class.java)
 
         val url  = s3ServiceImpl!!.uploadFile(file)
-        val book : Book = Book(bookHelperModel.bookName,bookHelperModel.bookAuthor,bookHelperModel.yearPublished,url,filename!!)
+        val imageUrl = s3ServiceImpl!!.uploadFile(image)
+        val book : Book = Book(bookHelperModel.bookName,bookHelperModel.bookAuthor,bookHelperModel.yearPublished,url,filename,imagename,imageUrl)
 
         return bookService!!.uploadBook(book)
 

@@ -20,7 +20,7 @@ class AccessReqServiceTest {
     @Mock
     val accessReqRepository : AccessReqRepository ?=null
 
-    val accessreq = AccessReq("08e69f37-4ec8-11ec-b9d4-f92af5e15ff7","Java","zuhaibahmed444@gmail.com",true)
+    val accessreq = AccessReq("1784dc80-5343-11ec-98af-53f96f86804e","Java","zuhaibahmed444@gmail.com",true)
 
     @Test
     fun saveRequestTest(){

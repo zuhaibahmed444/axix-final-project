@@ -20,7 +20,7 @@ class BookServiceTest {
     @Mock
     val bookRepository : BookRepository?=null
 
-    val book = Book("Mock Test-1","Myself","2021","https://zuhaib-axis-bucket.s3.amazonaws.com/Test-Book.pdf","Test-Book.pdf")
+    val book = Book("Mock Test-1","Myself","2021","https://zuhaib-axis-bucket.s3.amazonaws.com/Test-Book.pdf","Test-Book.pdf","https://zuhaib-axis-bucket.s3.amazonaws.com/Test-Book.pdf","test-image")
 
     @Test
     fun saveBookTest(){
@@ -30,8 +30,8 @@ class BookServiceTest {
 
     @Test
     fun getBookByIdTest(){
-        val id = "08e69f37-4ec8-11ec-b9d4-f92af5e15ff7"
-        assertEquals("Java",service?.getBookById(id)?.title)
+        val id = "c9c879eb-533a-11ec-98af-6bd001cdcda5"
+        assertEquals("Outliers",service?.getBookById(id)?.title)
     }
 
     @Test

@@ -31,7 +31,7 @@ class BookAssignServiceTest {
     @Test
     fun assignBookTest(){
         val user = userService?.getUser("zuhaibahmed444@gmail.com")
-        val book = bookService?.getBookById("08e69f37-4ec8-11ec-b9d4-f92af5e15ff7")
+        val book = bookService?.getBookById("c9c879eb-533a-11ec-98af-6bd001cdcda5")
         Assert.assertEquals(book,service?.assignBook(book!!,user!!)?.book)
 
     }
@@ -40,7 +40,7 @@ class BookAssignServiceTest {
 
     @Test
     fun getAssignedBookTest(){
-        val id = "c4f5a09f-4ec8-11ec-b9d4-991048f304af"
+        val id = "e08bc00d-5340-11ec-98af-df6c28495305"
         Assert.assertEquals(id,service?.getAssignedBookById(id)?.id)
 
     }
